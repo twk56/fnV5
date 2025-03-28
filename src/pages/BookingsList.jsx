@@ -89,7 +89,7 @@ const BookingsList = () => {
     >
       <StyledContainer>
         <Typography variant="h4" align="center" gutterBottom>
-          รายการการจอง
+          ตรวจสอบผู้ใช้ห้อง
         </Typography>
 
         {message && <Alert severity="success" sx={{ mb: 2 }}>{message}</Alert>}
@@ -117,7 +117,7 @@ const BookingsList = () => {
               </ListItem>
             ))
           ) : (
-            <Typography align="center">ไม่มีรายการการจอง</Typography>
+            <Typography align="center">ไม่มีคนใช้ห้อง</Typography>
           )}
         </List>
       </StyledContainer>

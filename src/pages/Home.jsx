@@ -170,7 +170,7 @@ const Home = () => {
 
   const handleCardClick = (room) => {
     if (role === 'guest') {
-      alert('กรุณาเข้าสู่ระบบเพื่อจองห้อง');
+      alert('กรุณาเข้าสู่ระบบเพื่อจเข้าใช้ห้อง');
       return;
     }
     if (room.status === 'unavailable') {

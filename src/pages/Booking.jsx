@@ -55,7 +55,7 @@ const Booking = () => {
     const fetchRooms = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${API}/admin/room-access`, {
+        const response = await axios.get(`${API}/room-access`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const available = response.data.filter((r) => r.status === 'available');
@@ -135,7 +135,7 @@ const Booking = () => {
     >
       <StyledContainer>
         <Typography variant="h4" align="center" gutterBottom>
-          จองห้อง
+          เข้าใช้ห้อง
         </Typography>
 
         {message && <Alert severity="success" sx={{ mb: 2 }}>{message}</Alert>}

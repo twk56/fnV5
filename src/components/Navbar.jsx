@@ -132,7 +132,7 @@ const Navbar = () => {
                     ห้อง
                   </NavButton>
                   <NavButton component={Link} to="/bookings" startIcon={<ListIcon />}>
-                    รายการการจอง
+                    ตรวจสอบคนใช้ห้อง
                   </NavButton>
                   {isAdmin && (
                     <NavButton component={Link} to="/admin" startIcon={<AdminPanelSettingsIcon />}>
@@ -190,11 +190,11 @@ const Navbar = () => {
               <>
                 <ListItem button component={Link} to="/booking">
                   <ListItemIcon><BookIcon /></ListItemIcon>
-                  <ListItemText primary="จองห้อง" />
+                  <ListItemText primary="เข้าใช้ห้อง" />
                 </ListItem>
                 <ListItem button component={Link} to="/bookings">
                   <ListItemIcon><ListIcon /></ListItemIcon>
-                  <ListItemText primary="รายการการจอง" />
+                  <ListItemText primary="ตรวจสอบผู้ใช้ห้อง" />
                 </ListItem>
                 {isAdmin && (
                   <ListItem button component={Link} to="/admin">
