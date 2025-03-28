@@ -22,6 +22,18 @@ export const loginUser = async (userData) => {
   }
 };
 
+// export const getProfile = async () => {
+//   const token = localStorage.getItem("token");
+//   console.log("Frontend Token ที่ได้:", token); 
+//   if (!token || token === "undefined") {
+//     throw new Error("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+//   }
+
+//   return await axios.get(`${API}/profile`, {
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+// };
+
 export const getProfile = async () => {
   const token = localStorage.getItem("token");
   console.log("Frontend Token ที่ได้:", token); 
@@ -38,13 +50,14 @@ export const updateProfile = async (data, isFile = false) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("กรุณาเข้าสู่ระบบ");
 
-  return await axios.put(`${API}/profile`, data, {
+  return await axios.put(`${API}/profile/profile`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       ...(isFile ? { "Content-Type": "multipart/form-data" } : { "Content-Type": "application/json" })
     }
   });
 };
+
 
 export const bookRoom = async (bookingData) => {
   const token = localStorage.getItem("token");

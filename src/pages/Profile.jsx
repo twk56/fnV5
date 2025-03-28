@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getProfile } from "../api";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import { styled } from "@mui/system";
-import API from '../config';
+import API from "../config";
 
 const ProfileContainer = styled(Container)({
   display: "flex",
@@ -29,7 +29,7 @@ const Profile = () => {
         navigate("/login");
         return;
       }
-  
+
       try {
         const response = await getProfile();
         console.log("Profile data received:", response);
@@ -44,13 +44,16 @@ const Profile = () => {
         navigate("/login");
       }
     };
-  
+
     fetchProfile();
   }, []);
 
   return (
     <ProfileContainer maxWidth="sm">
-      <Paper elevation={3} sx={{ padding: 3, textAlign: "center", width: "100%" }}>
+      <Paper
+        elevation={3}
+        sx={{ padding: 3, textAlign: "center", width: "100%" }}
+      >
         <Typography variant="h4" gutterBottom>
           โปรไฟล์ของคุณ
         </Typography>
@@ -58,7 +61,9 @@ const Profile = () => {
         <Box sx={{ marginTop: 3, textAlign: "left", width: "100%" }}>
           <Typography variant="h6">ชื่อ-นามสกุล: {profile.fullName}</Typography>
           <Typography variant="h6">อีเมล: {profile.email}</Typography>
-          <Typography variant="h6">รหัสนักศึกษา: {profile.studentId}</Typography>
+          <Typography variant="h6">
+            รหัสนักศึกษา: {profile.studentId}
+          </Typography>
         </Box>
       </Paper>
     </ProfileContainer>

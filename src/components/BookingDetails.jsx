@@ -49,13 +49,13 @@ const BookingDetails = () => {
       );
 
       if (now.isAfter(endTime) || now.isSame(endTime)) {
-        console.log(`⚠️ Booking ${id} has reached or passed endTime, canceling...`);
+        console.log(`Booking ${id} has reached or passed endTime, canceling...`);
         await cancelBooking();
       } else {
         setBooking(response.data);
       }
     } catch (error) {
-      console.error('🔴 Error fetching booking:', error.response?.data || error.message);
+      console.error('Error fetching booking:', error.response?.data || error.message);
       setError(error.response?.data?.message || 'ไม่สามารถดึงข้อมูลการจองได้');
     }
   };
@@ -71,10 +71,10 @@ const BookingDetails = () => {
       await axios.delete(`${API}/bookings/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('✅ Booking canceled successfully:', id);
+      console.log('Booking canceled successfully:', id);
       navigate('/');
     } catch (error) {
-      console.error('🔴 Error canceling booking:', error.response?.data || error.message);
+      console.error('Error canceling booking:', error.response?.data || error.message);
       setError(error.response?.data?.message || 'ไม่สามารถยกเลิกการจองได้');
     }
   };

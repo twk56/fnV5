@@ -168,6 +168,28 @@ const Home = () => {
     return now.isBefore(dayjs(booking.endTime).tz('Asia/Bangkok'));
   };
 
+  const handleCardClick = (room) => {
+    if (role === 'guest') {
+      alert('กรุณาเข้าสู่ระบบเพื่อจองห้อง');
+      return;
+    }
+    if (room.status === 'unavailable') {
+      alert('ห้องนี้ถูกปิด ไม่สามารถจองได้');
+      return;
+    }
+    if (!isRoomAvailable(room)) {
+      alert('ห้องนี้ไม่ว่าง');
+      return;
+    }
+    navigate('/booking');
+  };
+
+  const isRoomAvailable = (room) => {
+    const bookingOfThisRoom = bookings.find((b) => b.room === room.name);
+    const isRoomLocked = bookingOfThisRoom && isBookingActive(bookingOfThisRoom);
+    return !isRoomLocked && room.status === 'available';
+  };
+
   return (
     <Box
       sx={{
@@ -190,8 +212,8 @@ const Home = () => {
           <Grid container spacing={4}>
             {rooms.map((room) => {
               const bookingOfThisRoom = bookings.find((b) => b.room === room.name);
-              const isRoomLocked = bookingOfThisRoom && isBookingActive(bookingOfThisRoom);
-              const isRoomAvailable = !isRoomLocked && room.status === 'available';
+              const isLocked = bookingOfThisRoom && isBookingActive(bookingOfThisRoom);
+              const isAvailable = !isLocked && room.status === 'available';
 
               return (
                 <Grid item xs={12} sm={6} key={room._id}>
@@ -199,26 +221,18 @@ const Home = () => {
                     <CardMedia
                       component="img"
                       height="140"
-                      image={`${API.replace('/api', '')}/uploads/${room.image}`}
+                      image={`/uploads/${room.image}`}
                       alt={`${room.name} Image`}
-                      onError={() => {
-                        console.error('Failed to load:', `${API.replace('/api', '')}/uploads/${room.image}`);
+                      onError={(e) => {
+                        console.error(e);
+                        console.error('Failed to load:', `/uploads/${room.image}`);
                       }}
-                      onLoad={() => console.log('Loaded:', `${API.replace('/api', '')}/uploads/${room.image}`)}
-                      onClick={() => {
-                        if (room.status === 'unavailable') {
-                          alert('ห้องนี้ถูกปิด ไม่สามารถจองได้');
-                          return;
-                        }
-                        if (!isRoomAvailable) {
-                          alert('ห้องนี้ไม่ว่าง');
-                          return;
-                        }
-                        navigate('/booking');
-                      }}
+                      onLoad={() => console.log('Loaded:', `/uploads/${room.image}`)}
+                      onClick={() => handleCardClick(room)}
                       sx={{
-                        pointerEvents: room.status === 'unavailable' || !isRoomAvailable ? 'none' : 'auto',
-                        opacity: room.status === 'unavailable' || !isRoomAvailable ? 0.5 : 1,
+                        pointerEvents: role === 'guest' || room.status === 'unavailable' || !isAvailable ? 'none' : 'auto',
+                        opacity: role === 'guest' || room.status === 'unavailable' || !isAvailable ? 1 : 1,
+                        cursor: role === 'guest' || room.status === 'unavailable' || !isAvailable ? 'default' : 'pointer',
                       }}
                     />
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -227,8 +241,8 @@ const Home = () => {
                         sx={{
                           textAlign: 'center',
                           fontWeight: 'bold',
-                          color: isRoomAvailable ? 'success.main' : 'error.main',
-                          opacity: isRoomAvailable ? 1 : 0.5,
+                          color: isAvailable ? 'success.main' : 'error.main',
+                          opacity: isAvailable ? 1 : 0.5,
                         }}
                       >
                         {room.name}
