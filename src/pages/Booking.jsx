@@ -19,6 +19,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import API from '../config';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -54,7 +55,7 @@ const Booking = () => {
     const fetchRooms = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:4999/api/admin/rooms', {
+        const response = await axios.get(`${API}/admin/room-access`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const available = response.data.filter((r) => r.status === 'available');
@@ -71,7 +72,7 @@ const Booking = () => {
     const fetchRoomDetails = async () => {
       if (roomId) {
         try {
-          const response = await axios.get(`http://localhost:4999/api/rooms/${roomId}`);
+          const response = await axios.get(`${API_API}/room-access/${roomId}`);
           setRoom(response.data.name);
         } catch (error) {
           setError('ไม่สามารถดึงข้อมูลห้องได้');

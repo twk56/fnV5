@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getProfile } from "../api";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import { styled } from "@mui/system";
+import API from '../config';
 
 const ProfileContainer = styled(Container)({
   display: "flex",
@@ -45,7 +46,7 @@ const Profile = () => {
     };
   
     fetchProfile();
-  }, [navigate]);
+  }, []);
 
   return (
     <ProfileContainer maxWidth="sm">

@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import API from '../config';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -51,7 +52,7 @@ const BookingsList = () => {
           navigate('/login');
           return;
         }
-        const response = await axios.get('http://localhost:4999/api/bookings', {
+        const response = await axios.get(`${API}/bookings`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBookings(response.data);
@@ -61,7 +62,7 @@ const BookingsList = () => {
       }
     };
     fetchBookings();
-  }, [navigate]);
+  }, []);
 
   const handleCancelBooking = async (bookingId) => {
     try {

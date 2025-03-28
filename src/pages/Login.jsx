@@ -82,18 +82,22 @@ const Login = () => {
   
     try {
       const response = await loginUser(payload);
+      const { token, role } = response; // ดึง token และ role จาก response
+      localStorage.setItem('token', token); // บันทึก token
+      console.log('Login success, token:', token, 'role:', role);
       setStatus({ loading: false, error: "" });
       navigate("/");
       setTimeout(() => window.location.reload(), 100);
     } catch (error) {
-      const errorMessage = error.error || "รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง";
-      console.log("Server error:", error);
+      const errorMessage = error.response?.data?.error || "รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง";
+      console.log("Server error:", error.response?.data || error);
       setStatus({
         loading: false,
         error: errorMessage,
       });
     }
   };
+
   return (
     <Box
       sx={{
